@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Students</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2>Students List</h2>
+
+    <a href="/students/new" class="btn btn-success mb-3">Add Student</a>
+
+    <table class="table table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Exam</th>
+            <th>Mark</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="st : ${students}"
+            th:classappend="${st.exam < 50} ? 'table-danger'">
+            <td th:text="${st.id}"></td>
+            <td th:text="${st.name}"></td>
+            <td th:text="${st.surname}"></td>
+            <td th:text="${st.exam}"></td>
+            <td th:text="${st.mark}"></td>
+            <td>
+                <a th:href="@{/students/edit/{id}(id=${st.id})}" class="btn btn-primary btn-sm">Edit</a>
+                <a th:href="@{/students/delete/{id}(id=${st.id})}" class="btn btn-danger btn-sm"
+                   onclick="return confirm('Are you sure?')">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

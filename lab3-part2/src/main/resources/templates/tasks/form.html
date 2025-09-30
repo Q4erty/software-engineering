@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<div layout:fragment="content">
+    <h2 th:text="${task.id == null} ? 'Add Task' : 'Edit Task'">Form</h2>
+
+    <form th:action="@{/tasks/save}" method="post" th:object="${task}">
+        <input type="hidden" th:field="*{id}"/>
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" th:field="*{name}" required/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Deadline (YYYY-MM-DD)</label>
+            <input type="text" class="form-control" th:field="*{deadlineDate}" placeholder="2025-10-01"/>
+        </div>
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" th:field="*{completed}"/>
+            <label class="form-check-label">Completed</label>
+        </div>
+        <button class="btn btn-success" type="submit">Save</button>
+        <a href="/tasks" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+</body>
+</html>
