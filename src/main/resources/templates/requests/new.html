@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<div layout:fragment="content">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h3 class="card-title mb-4">Add New Request</h3>
+
+            <form th:action="@{/requests}" th:object="${request}" method="post">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">User Name</label>
+                        <input type="text" class="form-control" th:field="*{userName}" placeholder="Enter name" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Course Name</label>
+                        <input type="text" class="form-control" th:field="*{courseName}" placeholder="Course title" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Phone</label>
+                        <input type="text" class="form-control" th:field="*{phone}" placeholder="+7 (700) 707 70 70" required>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Commentary</label>
+                        <textarea class="form-control" rows="3" th:field="*{commentary}" placeholder="Additional details"></textarea>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <a th:href="@{/requests}" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<body>
+<div layout:fragment="content">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="card-title mb-0" th:text="${request.userName}"></h3>
+                <span th:classappend="${request.handled} ? 'badge bg-success' : 'badge bg-warning text-dark'"
+                      th:text="${request.handled ? 'Processed' : 'Pending'}"></span>
+            </div>
+
+            <p><strong>Course:</strong> <span th:text="${request.courseName}"></span></p>
+            <p><strong>Phone:</strong> <span th:text="${request.phone}"></span></p>
+            <p><strong>Commentary:</strong></p>
+            <p class="border rounded p-2 bg-light" th:text="${request.commentary}"></p>
+
+            <div class="mt-4 d-flex gap-2">
+                <form th:if="${!request.handled}" th:action="@{'/requests/' + ${request.id} + '/process'}" method="post">
+                    <button type="submit" class="btn btn-primary">Process Request</button>
+                </form>
+
+                <form th:action="@{'/requests/' + ${request.id} + '/delete'}" method="post">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+
+                <a th:href="@{/requests}" class="btn btn-outline-secondary">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
