@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Requests List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h4 mb-0">Application Requests</h1>
+        <a href="/requests/new" class="btn btn-success">
+            <i class="bi bi-plus-lg" aria-hidden="true"></i> Create New Request
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover mb-0 align-middle">
+                    <thead class="table-success">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Course</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Commentary</th>
+                        <th scope="col">Status</th>
+                        <th scope="col" class="text-center">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="request : ${requests}">
+                        <td th:text="${request.id}">1</td>
+                        <td th:text="${request.username}">John Doe</td>
+                        <td th:text="${request.phone}">+7 777 123 4567</td>
+                        <td th:text="${request.course.name}">Course name</td>
+                        <td th:text="${request.course.price}">0.0</td>
+                        <td th:text="${request.commentary}">No comment</td>
+                        <td>
+                            <span th:if="${request.handled}" class="badge bg-success">Processed</span>
+                            <span th:unless="${request.handled}" class="badge bg-warning text-dark">Pending</span>
+                        </td>
+                        <td class="text-center">
+                            <a th:if="${!request.handled}"
+                               th:href="@{/requests/{id}/process(id=${request.id})}"
+                               class="btn btn-sm btn-warning me-1">
+                                Process
+                            </a>
+                            <a th:if="${request.handled}"
+                               th:href="@{/requests/{id}/operators(id=${request.id})}"
+                               class="btn btn-sm btn-info me-1 text-white">
+                                View Operators
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
