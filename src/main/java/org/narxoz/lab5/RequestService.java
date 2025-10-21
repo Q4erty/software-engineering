@@ -24,7 +24,7 @@ public class RequestService {
 
     public void createRequest(ApplicationRequest request, Long courseId) {
         Courses course = coursesRepository.findById(courseId)
-                .orElseThrow(() -> new IllegalArgumentException("Курс не найден с id: " + courseId));
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Course with ID %s was not found", courseId)));
         request.setCourse(course);
         request.setHandled(false);
         request.setOperators(new ArrayList<>());
@@ -33,7 +33,7 @@ public class RequestService {
 
     public ApplicationRequest getRequest(Long id) {
         return requestRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Заявка не найдена с id: " + id));
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Request with ID %s was not found", id)));
     }
 
     public List<Operators> getAllOperators() {
@@ -43,7 +43,7 @@ public class RequestService {
     public void assignOperators(Long requestId, List<Long> operatorIds) {
         ApplicationRequest request = getRequest(requestId);
         if (request.isHandled()) {
-            throw new IllegalStateException("Заявка уже обработана");
+            throw new IllegalStateException();
         }
 
         List<Operators> operators = operatorsRepository.findAllById(operatorIds);
