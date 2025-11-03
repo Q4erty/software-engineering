@@ -1,4 +1,4 @@
-package org.narxoz.lab5.service;
+package org.narxoz.lab5.service.impl;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -6,6 +6,7 @@ import org.narxoz.lab5.domain.entity.ApplicationRequest;
 import org.narxoz.lab5.domain.entity.Courses;
 import org.narxoz.lab5.repository.ApplicationRequestRepository;
 import org.narxoz.lab5.repository.CoursesRepository;
+import org.narxoz.lab5.service.ApplicationRequestService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -1,10 +1,7 @@
 package org.narxoz.lab5.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.narxoz.lab5.domain.dto.CreateOperatorsRequestDto;
-import org.narxoz.lab5.domain.dto.CreateOperatorsResponseDto;
-import org.narxoz.lab5.domain.dto.GetApplicationRequestResponseDto;
-import org.narxoz.lab5.domain.dto.GetOperatorsResponseDto;
+import org.narxoz.lab5.domain.dto.*;
 import org.narxoz.lab5.mapper.ApplicationRequestMapper;
 import org.narxoz.lab5.mapper.OperatorMapper;
 import org.narxoz.lab5.service.OperatorService;
@@ -34,8 +31,8 @@ public class OperatorController {
     }
 
     @PatchMapping("/{id}/assign/{requestId}")
-    public ResponseEntity<GetApplicationRequestResponseDto> assignOperator(@PathVariable UUID id, @PathVariable UUID requestId) {
-        return ResponseEntity.status(HttpStatus.OK).body(applicationRequestMapper.toGetApplicationRequestResponseDto(operatorService.assignOperator(id, requestId)));
+    public ResponseEntity<UpdateApplicationRequestResponseDto> assignOperator(@PathVariable UUID id, @PathVariable UUID requestId) {
+        return ResponseEntity.status(HttpStatus.OK).body(applicationRequestMapper.toUpdateApplicationRequestResponseDto(operatorService.assignOperator(id, requestId)));
     }
 
 }

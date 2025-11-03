@@ -1,8 +1,9 @@
-package org.narxoz.lab5.service;
+package org.narxoz.lab5.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.narxoz.lab5.domain.entity.Courses;
 import org.narxoz.lab5.repository.CoursesRepository;
+import org.narxoz.lab5.service.CourseService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

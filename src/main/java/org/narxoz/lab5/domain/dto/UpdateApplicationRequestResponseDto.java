@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -16,4 +17,5 @@ public class UpdateApplicationRequestResponseDto {
     private String phone;
     private boolean handled;
     private UpdateApplicationRequestCourseResponseDto course;
+    private List<UpdateApplicationRequestOperatorsResponseDto> operators;
 }

@@ -18,10 +18,10 @@ public class Operators {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "c_name", unique = true, nullable = false)
+    @Column(name = "c_name", nullable = false)
     private String name;
 
-    @Column(name = "c_surname", unique = true, nullable = false)
+    @Column(name = "c_surname", nullable = false)
     private String surname;
 
     @Column(name = "c_department", nullable = false)

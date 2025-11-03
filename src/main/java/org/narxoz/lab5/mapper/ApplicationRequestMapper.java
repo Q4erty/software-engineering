@@ -21,6 +21,8 @@ public interface ApplicationRequestMapper {
     CreateApplicationRequestCourseResponseDto toCreateApplicationRequestCourseResponseDto(Courses courses);
 
 
+    UpdateApplicationRequestOperatorsResponseDto toUpdateApplicationRequestOperatorsResponseDto(Operators operators);
+
     ApplicationRequest fromUpdateApplicationRequestDto(UpdateApplicationRequestDto updateApplicationRequestDto);
 
     UpdateApplicationRequestResponseDto toUpdateApplicationRequestResponseDto(ApplicationRequest applicationRequest);
