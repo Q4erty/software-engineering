@@ -22,12 +22,26 @@ public class CourseController {
 
     @GetMapping
     public ResponseEntity<List<GetCoursesResponseDto>> getAllCourses() {
-        return ResponseEntity.status(HttpStatus.OK).body(courseService.getCourses().stream().map(courseMapper::toGetCoursesResponseDto).toList());
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(courseService.getCourses()
+                        .stream()
+                        .map(courseMapper::toGetCoursesResponseDto)
+                        .toList()
+                );
     }
 
     @PostMapping
     public ResponseEntity<CreateCourseResponseDto> createCourse(@RequestBody CreateCourseRequestDto courseRequestDto) {
-        return ResponseEntity.status(HttpStatus.OK).body(courseMapper.toCreateCourseResponseDto(courseService.createCourse(courseMapper.fromCreateCourseRequestDto(courseRequestDto))));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(
+                        courseMapper.toCreateCourseResponseDto(
+                                courseService.createCourse(
+                                        courseMapper.fromCreateCourseRequestDto(courseRequestDto)
+                                )
+                        )
+                );
     }
 
     @DeleteMapping("/{id}")
