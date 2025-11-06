@@ -27,17 +27,14 @@ class CourseServiceImplTest {
 
     @Test
     void getCourses_ShouldReturnCoursesList() {
-        // given
         var course1 = new Courses(UUID.randomUUID(), "Java", "Java core", 5000L);
-        var course2 = new Courses(UUID.randomUUID(), "Spring Boot", "Spring backend", 7000L);
+        var course2 = new Courses(UUID.randomUUID(), "Spring Boot", "backend", 7000L);
         var list = List.of(course1, course2);
 
         doReturn(list).when(courseRepository).findAll();
 
-        // when
         var result = courseService.getCourses();
 
-        // then
         assertEquals(2, result.size());
         assertEquals("Java", result.getFirst().getName());
         verify(courseRepository).findAll();
@@ -45,15 +42,12 @@ class CourseServiceImplTest {
 
     @Test
     void createCourse_ShouldSaveAndReturnCourse() {
-        // given
-        var course = new Courses(UUID.randomUUID(), "Spring Boot", "Awesome course", 7000L);
+        var course = new Courses(UUID.randomUUID(), "Spring Boot", "course", 7000L);
 
         doReturn(course).when(courseRepository).save(course);
 
-        // when
         var result = courseService.createCourse(course);
 
-        // then
         assertNotNull(result);
         assertEquals("Spring Boot", result.getName());
         verify(courseRepository).save(course);
@@ -61,14 +55,10 @@ class CourseServiceImplTest {
 
     @Test
     void deleteCourse_ShouldCallRepository() {
-        // given
         var id = UUID.randomUUID();
-
-        // when        // ✅ doReturn вместо when
 
         courseService.deleteCourse(id);
 
-        // then
         verify(courseRepository).deleteById(id);
     }
 }

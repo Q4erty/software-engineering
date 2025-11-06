@@ -35,7 +35,7 @@ class ApplicationRequestServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        course = new Courses(UUID.randomUUID(), "Spring Boot", "Learn Spring Boot", 7000L);
+        course = new Courses(UUID.randomUUID(), "Spring Boot", "Spring Boot", 7000L);
         request = new ApplicationRequest();
         request.setId(UUID.randomUUID());
         request.setUsername("Jhon");

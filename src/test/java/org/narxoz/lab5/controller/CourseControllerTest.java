@@ -36,7 +36,6 @@ class CourseControllerTest {
     @Test
     @DisplayName("GET /api/v1/courses returns HTTP response with status 200 OK and body List<GetCoursesResponseDto>")
     void getAllCourses_ReturnsValidResponseEntity() {
-        // given
         var course1 = new Courses(UUID.randomUUID(), "Spring boot", "Spring boot courses", 7000L);
         var course2 = new Courses(UUID.randomUUID(), "Java", "Java core", 5000L);
         var courses = List.of(course1, course2);
@@ -49,10 +48,8 @@ class CourseControllerTest {
         doReturn(dto1).when(courseMapper).toGetCoursesResponseDto(course1);
         doReturn(dto2).when(courseMapper).toGetCoursesResponseDto(course2);
 
-        // when
         var responseEntity = courseController.getAllCourses();
 
-        // then
         assertNotNull(responseEntity);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(expectedDtos, responseEntity.getBody());
@@ -60,7 +57,6 @@ class CourseControllerTest {
 
     @Test
     void createCourse_ShouldReturnCreatedResponse() {
-        // given
         var requestDto = new CreateCourseRequestDto("Spring Boot", "Backend development", 7000L);
         var course = new Courses(UUID.randomUUID(), "Spring Boot", "Backend development", 7000L);
         var savedCourse = new Courses(course.getId(), "Spring Boot", "Backend development", 7000L);
@@ -70,10 +66,8 @@ class CourseControllerTest {
         doReturn(savedCourse).when(courseService).createCourse(course);
         doReturn(responseDto).when(courseMapper).toCreateCourseResponseDto(savedCourse);
 
-        // when
         var response = courseController.createCourse(requestDto);
 
-        // then
         assertNotNull(response);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(responseDto, response.getBody());

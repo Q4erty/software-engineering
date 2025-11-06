@@ -1,5 +1,6 @@
 package org.narxoz.lab5.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.narxoz.lab5.domain.dto.CreateCourseRequestDto;
 import org.narxoz.lab5.domain.dto.CreateCourseResponseDto;
@@ -32,7 +33,7 @@ public class CourseController {
     }
 
     @PostMapping
-    public ResponseEntity<CreateCourseResponseDto> createCourse(@RequestBody CreateCourseRequestDto courseRequestDto) {
+    public ResponseEntity<CreateCourseResponseDto> createCourse(@RequestBody @Valid CreateCourseRequestDto courseRequestDto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(

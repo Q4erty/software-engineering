@@ -30,8 +30,8 @@ public class OperatorServiceImpl implements OperatorService {
 
     @Override
     public ApplicationRequest assignOperator(UUID id, UUID requestID) {
-        Operators operators = operatorsRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Not found"));
-        ApplicationRequest applicationRequest = applicationRequestRepository.findById(requestID).orElseThrow(() -> new EntityNotFoundException("Not found"));
+        Operators operators = operatorsRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Operator not found with id " + id));
+        ApplicationRequest applicationRequest = applicationRequestRepository.findById(requestID).orElseThrow(() -> new EntityNotFoundException("Application request not found with id " + requestID));
 
         applicationRequest.getOperators().add(operators);
 
