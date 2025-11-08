@@ -1,5 +1,6 @@
 package org.narxoz.lab5.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.narxoz.lab5.domain.dto.*;
 import org.narxoz.lab5.domain.entity.ApplicationRequest;
@@ -33,7 +34,7 @@ public class ApplicationRequestController {
     }
 
     @PostMapping
-    public ResponseEntity<CreateApplicationRequestResponseDto> createApplicationRequest(@RequestBody CreateApplicationRequestDto applicationRequestDto){
+    public ResponseEntity<CreateApplicationRequestResponseDto> createApplicationRequest(@RequestBody @Valid CreateApplicationRequestDto applicationRequestDto){
         ApplicationRequest applicationRequest = applicationRequestMapper.fromApplicationRequest(applicationRequestDto);
         ApplicationRequest applicationRequestCreated = applicationRequestService.createApplicationRequest(applicationRequest, applicationRequestDto.getCourse());
         return ResponseEntity.status(HttpStatus.CREATED).body(applicationRequestMapper.toCreateApplicationRequestResponseDto(applicationRequestCreated));

@@ -23,4 +23,7 @@ public class CreateCourseRequestDto {
     @Digits(integer = 8, fraction = 5)
     @Positive
     private Long price;
+
+
+
 }

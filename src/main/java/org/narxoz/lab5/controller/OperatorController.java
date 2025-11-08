@@ -1,5 +1,6 @@
 package org.narxoz.lab5.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.narxoz.lab5.domain.dto.*;
 import org.narxoz.lab5.mapper.ApplicationRequestMapper;
@@ -26,7 +27,7 @@ public class OperatorController {
     }
 
     @PostMapping
-    public ResponseEntity<CreateOperatorsResponseDto> createOperator(@RequestBody CreateOperatorsRequestDto operatorsRequestDto) {
+    public ResponseEntity<CreateOperatorsResponseDto> createOperator(@RequestBody @Valid CreateOperatorsRequestDto operatorsRequestDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(operatorMapper.toCreateOperatorsResponseDto(operatorService.createOperator(operatorMapper.frommCreateOperatorsRequestDto(operatorsRequestDto))));
     }
 
