@@ -1,5 +1,6 @@
 package org.narxoz.lab5.service.impl;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.narxoz.lab5.domain.entity.Courses;
 import org.narxoz.lab5.repository.CoursesRepository;
@@ -13,6 +14,11 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CourseServiceImpl implements CourseService {
     private final CoursesRepository courseRepository;
+
+    @Override
+    public Courses getById(UUID id) {
+        return courseRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Course not found"));
+    }
 
     @Override
     public List<Courses> getCourses() {
