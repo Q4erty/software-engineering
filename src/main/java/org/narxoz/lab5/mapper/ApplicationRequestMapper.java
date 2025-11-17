@@ -13,7 +13,7 @@ import java.util.UUID;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ApplicationRequestMapper {
 
-    @Mapping(target = "course", source = "course")
+    @Mapping(target = "course.id", source = "course")
     ApplicationRequest fromApplicationRequest(CreateApplicationRequestDto createApplicationRequestDto);
 
     CreateApplicationRequestResponseDto toCreateApplicationRequestResponseDto(ApplicationRequest applicationRequest);
@@ -36,11 +36,4 @@ public interface ApplicationRequestMapper {
 
     GetApplicationRequestResponseDto toGetApplicationRequestResponseDto(ApplicationRequest applicationRequest);
 
-
-    default Courses map(UUID courseId) {
-        if (courseId == null) return null;
-        Courses course = new Courses();
-        course.setId(courseId);
-        return course;
-    }
 }
