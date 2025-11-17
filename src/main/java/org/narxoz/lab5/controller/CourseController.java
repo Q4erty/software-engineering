@@ -28,15 +28,20 @@ public class CourseController {
     @Qualifier("courseManualCacheServiceImpl")
     private final CourseService courseManualCacheService;
 
+    @Qualifier("courseSpringCacheServiceImpl")
+    private final CourseService courseSpringCacheService;
+
     private final CourseMapper courseMapper;
 
     public CourseController(
             @Qualifier("courseServiceImpl") CourseService courseNoneCacheService,
             @Qualifier("courseManualCacheServiceImpl") CourseService courseManualCacheService,
+            @Qualifier("courseSpringCacheServiceImpl") CourseService courseSpringCacheService,
             CourseMapper courseMapper
     ) {
         this.courseNoneCacheService = courseNoneCacheService;
         this.courseManualCacheService = courseManualCacheService;
+        this.courseSpringCacheService = courseSpringCacheService;
         this.courseMapper = courseMapper;
     }
 
@@ -52,10 +57,18 @@ public class CourseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GetCoursesResponseDto> getById(@PathVariable UUID id) {
+    public ResponseEntity<GetCoursesResponseDto> getById(
+            @PathVariable UUID id,
+            @RequestParam(value = "cacheMode", defaultValue = "NONE") CacheMode cacheMode
+    ) {
+        log.info("Getting course with cache mode: {}", cacheMode);
+
+        CourseService courseService = resolveService(cacheMode);
+
+
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(courseMapper.toGetCoursesResponseDto(courseNoneCacheService.getById(id))
+                .body(courseMapper.toGetCoursesResponseDto(courseService.getById(id))
                 );
     }
 
@@ -89,6 +102,7 @@ public class CourseController {
         return switch (cacheMode) {
             case NONE -> courseNoneCacheService;
             case MANUAL -> courseManualCacheService;
+            case SPRING -> courseSpringCacheService;
         };
     }
 }

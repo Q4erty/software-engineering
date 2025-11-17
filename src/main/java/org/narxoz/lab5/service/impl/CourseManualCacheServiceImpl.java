@@ -3,16 +3,17 @@ package org.narxoz.lab5.service.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.narxoz.lab5.domain.entity.Courses;
 import org.narxoz.lab5.repository.CoursesRepository;
 import org.narxoz.lab5.service.CourseService;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -20,30 +21,29 @@ import java.util.UUID;
 public class CourseManualCacheServiceImpl implements CourseService {
 
     private final CoursesRepository courseRepository;
-    private final StringRedisTemplate stringRedisTemplate;
-    private final ObjectMapper objectMapper;
+    private final RedisTemplate<String, Courses> redisTemplate;
 
     private static final String CACHE_KEY_PREFIX = "course:";
+    private static final long CACHE_TTL_MINUTES = 1;
 
     @Override
-    @SneakyThrows
     public Courses getById(UUID id) {
         var cacheKey = CACHE_KEY_PREFIX + id;
 
-        String objFromCache = stringRedisTemplate.opsForValue().get("course:" + id);
+        Courses course = redisTemplate.opsForValue().get(cacheKey);
 
-        if (objFromCache != null) {
+        if (course != null) {
             log.info("Course found in cache: {}", cacheKey);
-            return objectMapper.readValue(objFromCache, Courses.class);
+            return course;
         }
 
         log.info("Course not found in cache: {}", cacheKey);
-        Courses courses = courseRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Course not found"));
+        Courses courseFromDB = courseRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Course not found"));
 
-        stringRedisTemplate.opsForValue().set("course:" + id, objectMapper.writeValueAsString(courses));
+        redisTemplate.opsForValue().set(cacheKey, courseFromDB, CACHE_TTL_MINUTES, TimeUnit.MINUTES);
         log.info("Course cached: {}", cacheKey);
 
-        return courses;
+        return courseFromDB;
     }
 
     @Override
@@ -52,18 +52,22 @@ public class CourseManualCacheServiceImpl implements CourseService {
     }
 
     @Override
-    @SneakyThrows
     public Courses createCourse(Courses course) {
-        Courses saved = courseRepository.save(course);
-
-        var cacheKey = CACHE_KEY_PREFIX + saved.getId();
-
-        stringRedisTemplate.opsForValue().setIfAbsent(cacheKey, objectMapper.writeValueAsString(saved));
-        return saved;
+        return courseRepository.save(course);
     }
 
     @Override
     public void deleteCourse(UUID id) {
+        log.info("Deleting course from DB: {}", id);
+        if(!courseRepository.existsById(id)) {
+            throw new EntityNotFoundException("Course not found, ID: " + id);
+        }
         courseRepository.deleteById(id);
+
+        String cacheKey = CACHE_KEY_PREFIX + id;
+
+        courseRepository.deleteById(id);
+        redisTemplate.delete(cacheKey);
+        log.info("Cache invalidated for deleted course entity with ID:, {}", id);
     }
 }
