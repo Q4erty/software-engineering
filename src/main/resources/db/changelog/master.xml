@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+          http://www.liquibase.org/xml/ns/dbchangelog
+          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <include file="/db/changelog/2025-11-19-21-10-43-create-courses.xml"/>
+    <include file="/db/changelog/2025-11-19-21-27-32-create-operators.xml"/>
+    <include file="/db/changelog/2025-11-19-21-41-21-create-application-request.xml"/>
+    <include file="/db/changelog/2025-11-19-22-13-54-create-request-operators.xml"/>
+    <include file="/db/changelog/2025-11-19-23-01-11-insert-initial-data.xml"/>
+
+</databaseChangeLog>

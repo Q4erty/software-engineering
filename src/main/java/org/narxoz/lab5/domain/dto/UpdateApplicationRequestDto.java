@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UpdateApplicationRequestDto {
+public class    UpdateApplicationRequestDto {
 
     @NotBlank
     private String username;

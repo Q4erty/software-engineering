@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.21.xsd">
+
+    <changeSet id="insert-courses" author="q4erty">
+        <insert tableName="t_courses">
+            <column name="id" value="f47ac10b-58cc-4372-a567-0e02b2c3d479"/>
+            <column name="c_name" value="Java Core"/>
+            <column name="c_description" value="Bazalyk kurs Java boyinsha"/>
+            <column name="c_price" value="15000"/>
+        </insert>
+        <insert tableName="t_courses">
+            <column name="id" value="f47ac10b-58cc-4372-a567-0e02b2c3d480"/>
+            <column name="c_name" value="Spring Boot"/>
+            <column name="c_description" value="Kurs po Spring Boot"/>
+            <column name="c_price" value="20000"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-operators" author="q4erty">
+        <insert tableName="t_operators">
+            <column name="id" value="550e8400-e29b-41d4-a716-446655440000"/>
+            <column name="c_name" value="Ayan"/>
+            <column name="c_surname" value="Nurmukhan"/>
+            <column name="c_department" value="Support"/>
+        </insert>
+        <insert tableName="t_operators">
+            <column name="id" value="550e8400-e29b-41d4-a716-446655440001"/>
+            <column name="c_name" value="Dana"/>
+            <column name="c_surname" value="Kassym"/>
+            <column name="c_department" value="Sales"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-requests" author="q4erty">
+        <insert tableName="c_application_request">
+            <column name="id" value="123e4567-e89b-12d3-a456-426614174000"/>
+            <column name="t_username" value="user1"/>
+            <column name="t_commentary" value="Java kurs aluw kerek"/>
+            <column name="t_phone_number" value="+77011234567"/>
+            <column name="t_handled" valueBoolean="false"/>
+            <column name="t_course_id" value="f47ac10b-58cc-4372-a567-0e02b2c3d479"/>
+        </insert>
+        <insert tableName="c_application_request">
+            <column name="id" value="123e4567-e89b-12d3-a456-426614174001"/>
+            <column name="t_username" value="user2"/>
+            <column name="t_commentary" value="Spring Boot kurs aluw kerek"/>
+            <column name="t_phone_number" value="+77017654321"/>
+            <column name="t_handled" valueBoolean="false"/>
+            <column name="t_course_id" value="f47ac10b-58cc-4372-a567-0e02b2c3d480"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert-request-operators" author="q4erty">
+        <insert tableName="c_request_operators">
+            <column name="t_request_id" value="123e4567-e89b-12d3-a456-426614174000"/>
+            <column name="t_operator_id" value="550e8400-e29b-41d4-a716-446655440000"/>
+        </insert>
+        <insert tableName="c_request_operators">
+            <column name="t_request_id" value="123e4567-e89b-12d3-a456-426614174001"/>
+            <column name="t_operator_id" value="550e8400-e29b-41d4-a716-446655440001"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

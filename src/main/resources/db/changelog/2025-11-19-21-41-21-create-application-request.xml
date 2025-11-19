@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+          http://www.liquibase.org/xml/ns/dbchangelog
+          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+
+    <changeSet id="create-application-request" author="q4erty">
+
+        <createTable tableName="c_application_request">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+
+            <column name="t_username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="t_commentary" type="TEXT"/>
+
+            <column name="t_phone_number" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="t_handled" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="t_course_id" type="UUID"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseColumnNames="t_course_id"
+                baseTableName="c_application_request"
+                constraintName="fk_request_course"
+                referencedColumnNames="id"
+                referencedTableName="t_courses"/>
+    </changeSet>
+
+</databaseChangeLog>
