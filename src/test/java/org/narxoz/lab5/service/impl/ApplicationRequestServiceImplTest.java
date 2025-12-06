@@ -87,7 +87,7 @@ class ApplicationRequestServiceImplTest {
         doReturn(request).when(applicationRequestRepository).save(any(ApplicationRequest.class));
 
         ApplicationRequest updated = new ApplicationRequest();
-        updated.setUsername("UpdatedUser");
+        updated.setUsername("Updated User");
         updated.setPhone("87771111111");
         updated.setCommentary("Updated comment");
 

@@ -3,9 +3,18 @@ version: "3.9"
 services:
   postgres:
     image: postgres:16
-    container_name: for_liquibase
+    container_name: main
     environment:
       POSTGRES_USER: ${DATASOURCE_USERNAME}
       POSTGRES_PASSWORD: ${DATASOURCE_PASSWORD}
     ports:
       - "5434:5432"
+
+  postgres_test:
+    image: postgres:16
+    container_name: test
+    environment:
+      POSTGRES_USER: ${TEST_DATASOURCE_USERNAME}
+      POSTGRES_PASSWORD: ${TEST_DATASOURCE_PASSWORD}
+    ports:
+      - "5435:5432"

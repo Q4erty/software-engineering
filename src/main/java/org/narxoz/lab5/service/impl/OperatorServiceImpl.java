@@ -1,6 +1,7 @@
 package org.narxoz.lab5.service.impl;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.narxoz.lab5.domain.entity.ApplicationRequest;
 import org.narxoz.lab5.domain.entity.Operators;
@@ -29,6 +30,7 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     @Override
+    @Transactional
     public ApplicationRequest assignOperator(UUID id, UUID requestID) {
         Operators operators = operatorsRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Operator not found with id " + id));
         ApplicationRequest applicationRequest = applicationRequestRepository.findById(requestID).orElseThrow(() -> new EntityNotFoundException("Application request not found with id " + requestID));

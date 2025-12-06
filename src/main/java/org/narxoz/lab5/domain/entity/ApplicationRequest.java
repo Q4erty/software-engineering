@@ -3,6 +3,7 @@ package org.narxoz.lab5.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,7 +41,7 @@ public class ApplicationRequest {
             joinColumns = @JoinColumn(name = "t_request_id"),
             inverseJoinColumns = @JoinColumn(name = "t_operator_id")
     )
-    private List<Operators> operators;
+    private List<Operators> operators = new ArrayList<>();;
 
     @Override
     public String toString() {

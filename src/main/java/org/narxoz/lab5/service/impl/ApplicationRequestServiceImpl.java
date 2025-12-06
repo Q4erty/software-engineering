@@ -27,7 +27,7 @@ public class ApplicationRequestServiceImpl implements ApplicationRequestService 
     @Override
     public ApplicationRequest getApplicationRequestById(UUID id) {
         return applicationRequestRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Course not found with id " + id));
+                .orElseThrow(() -> new EntityNotFoundException("ApplicationRequest not found with id " + id));
     }
 
     @Override
@@ -43,10 +43,12 @@ public class ApplicationRequestServiceImpl implements ApplicationRequestService 
 
     @Override
     public ApplicationRequest updateApplicationRequest(ApplicationRequest applicationRequestUpdate, UUID id) {
-        ApplicationRequest applicationRequest = applicationRequestRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Course not found with id " + id));
-        applicationRequest.setUsername(applicationRequest.getUsername());
-        applicationRequest.setCommentary(applicationRequest.getCommentary());
-        applicationRequest.setPhone(applicationRequest.getPhone());
+        ApplicationRequest applicationRequest = applicationRequestRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("ApplicationRequest not found with id " + id));
+
+        applicationRequest.setUsername(applicationRequestUpdate.getUsername());
+        applicationRequest.setCommentary(applicationRequestUpdate.getCommentary());
+        applicationRequest.setPhone(applicationRequestUpdate.getPhone());
 
         return applicationRequestRepository.save(applicationRequest);
     }
